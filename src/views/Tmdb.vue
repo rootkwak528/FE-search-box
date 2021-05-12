@@ -3,6 +3,9 @@
     <TmdbSearchBox
       @tmdb-text-input="onTmdbTextInput"
     />
+    <TmdbSearchList
+      :movieList="movieList"
+    />
   </div>
 </template>
 
@@ -10,6 +13,7 @@
 import axios from 'axios'
 
 import TmdbSearchBox from '@/components/TmdbSearchBox'
+import TmdbSearchList from '@/components/TmdbSearchList'
 
 const API_URL = 'https://api.themoviedb.org/3'
 const API_KEY = process.env.VUE_APP_TMDB_API_KEY
@@ -18,23 +22,26 @@ export default {
   name: 'Tmdb',
   data () {
     return {
-      searchText: ''
+      searchText: '',
+      movieList: ''
     }
   },
   components: {
-    TmdbSearchBox
+    TmdbSearchBox,
+    TmdbSearchList
   },
   methods: {
+    onTmdbTextInput (textInput) {
+      this.searchTmdb(textInput)
+    },
     getUrl (category='movie', feature='', kwargs) {
+      // TMDB API에 요청할 url를 반환하는 메서드
       let url = `${API_URL}/${category}/${feature}?api_key=${API_KEY}`
       for (const key in kwargs) {
         url += `&${key}=${kwargs[key]}`
       }
 
       return url
-    },
-    onTmdbTextInput (textInput) {
-      this.searchTmdb(textInput)
     },
     searchTmdb (searchKeyword) {
       const params = {
@@ -44,12 +51,16 @@ export default {
       }
       const url = this.getUrl('search', 'movie', params)
 
+      // TMDB API 요청
       axios({
         method: 'get',
         url
       })
       .then((res) => {
-        console.log(res)
+        this.movieList = res.data.results
+      })
+      .catch((err) => {
+        console.log(err)
       })
     }
   }

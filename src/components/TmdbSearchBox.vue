@@ -13,7 +13,10 @@ export default {
   name: 'TmdbSearchBox',
   methods: {
     onInputText (event) {
-      this.$emit('tmdb-text-input', event.target.value)
+      const searchKeyword = event.target.value.trim()
+      if (searchKeyword) {
+        this.$emit('tmdb-text-input', event.target.value)
+      }
     },
     onResetText (event) {
       event.target.value = ''
