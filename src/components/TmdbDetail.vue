@@ -7,10 +7,12 @@
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen
     ></iframe>
+
     <img
       v-else-if="poster_path"
       :src="poster_path"
     >
+    
     <h2>{{ selectedMovie.title }} ({{ release_data }})</h2>
     <p v-if="selectedMovie.overview">{{ selectedMovie.overview }}</p>
     <p v-else>줄거리가 없습니다</p>
