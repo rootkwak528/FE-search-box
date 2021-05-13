@@ -57,9 +57,16 @@ export default {
       // TMDB 예고편 정보 확인
       this.searchTMDB('movie', `${movie.id}/videos`)
         .then( res => {
+          let trailerUrl = ''
+          try {
+            trailerUrl = `https://www.youtube.com/embed/${res.data.results[0].key}`
+          }
+          catch (err) {
+            console.log(err)
+          }
           this.selectedMovie = {
             ...movie,
-            trailerUrl: `https://www.youtube.com/embed/${res.data.results[0].key}`
+            trailerUrl
           }
         })
         .catch( err => {
