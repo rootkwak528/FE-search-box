@@ -1,6 +1,10 @@
 <template>
   <li @click="onClickItem">
-    <img :src="`https://www.themoviedb.org/t/p/w92${movie.poster_path}`" alt="movie_poster">
+    <img  
+      v-if="poster_path"
+      :src="poster_path"
+      alt="movie_poster"
+    >
     {{ movie.title }}
   </li>
 </template>
@@ -12,8 +16,17 @@ export default {
     movie: Object
   },
   methods: {
-    onClickItem (event) {
-      console.log(event.target)
+    onClickItem () {
+      this.$emit('on-click-item', this.movie)
+    }
+  },
+  computed: {
+    poster_path () {
+      if (this.movie.poster_path) {
+        return `https://www.themoviedb.org/t/p/w92${this.movie.poster_path}`
+      } else {
+        return ''
+      }
     }
   }
 }

@@ -4,6 +4,7 @@
       v-for="(movie, idx) in movieList"
       :movie=movie
       :key=idx
+      @on-click-item="onClickItem"
     />
   </div>
 </template>
@@ -18,6 +19,11 @@ export default {
   props: {
     movieList: [String, Array]
   },
+  methods: {
+    onClickItem (movie) {
+      this.$emit('on-click-item', movie)
+    }
+  }
 }
 </script>
 

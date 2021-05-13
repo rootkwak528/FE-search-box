@@ -1,11 +1,14 @@
 <template>
   <div>
-    <TmdbDetail/>
+    <TmdbDetail
+      :selectedMovie="selectedMovie"
+    />
     <TmdbSearchBox
       @tmdb-text-input="onTmdbTextInput"
     />
     <TmdbSearchList
       :movieList="movieList"
+      @on-click-item="onClickItem"
     />
   </div>
 </template>
@@ -24,6 +27,7 @@ export default {
   name: 'Tmdb',
   data () {
     return {
+      selectedMovie: '',
       searchText: '',
       movieList: ''
     }
@@ -65,6 +69,9 @@ export default {
       .catch((err) => {
         console.log(err)
       })
+    },
+    onClickItem (movie) {
+      this.selectedMovie = movie
     }
   }
 }

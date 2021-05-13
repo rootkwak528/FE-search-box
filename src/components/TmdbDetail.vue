@@ -1,12 +1,23 @@
 <template>
-  <div>
-    tmdb detail
+  <div v-if="selectedMovie">
+    {{ selectedMovie }}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'TmdbDetail'
+  name: 'TmdbDetail',
+  props: {
+    selectedMovie: [String, Object]
+  },
+  computed: {
+    trailerUrl () {
+      return ''
+    }
+  },
+  updated () {
+    console.log(this.selectedMovie)
+  }
 }
 </script>
 
