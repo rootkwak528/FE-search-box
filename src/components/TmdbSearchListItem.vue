@@ -1,5 +1,5 @@
 <template>
-  <li @click="onClickItem">
+  <li @click="onClickItem" class="item">
     <img  
       v-if="poster_path"
       :src="poster_path"
@@ -33,5 +33,11 @@ export default {
 </script>
 
 <style>
+  .item {
+    cursor: pointer;
+  }
 
+  .item:hover {
+    background: #eee;
+  }
 </style>
