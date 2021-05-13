@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TmdbDetail/>
     <TmdbSearchBox
       @tmdb-text-input="onTmdbTextInput"
     />
@@ -12,6 +13,7 @@
 <script>
 import axios from 'axios'
 
+import TmdbDetail from '@/components/TmdbDetail'
 import TmdbSearchBox from '@/components/TmdbSearchBox'
 import TmdbSearchList from '@/components/TmdbSearchList'
 
@@ -27,6 +29,7 @@ export default {
     }
   },
   components: {
+    TmdbDetail,
     TmdbSearchBox,
     TmdbSearchList
   },
