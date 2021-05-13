@@ -15,7 +15,7 @@ export default {
     onInputText (event) {
       const searchKeyword = event.target.value.trim()
       if (searchKeyword) {
-        this.$emit('tmdb-text-input', event.target.value)
+        this.$emit('tmdb-text-input', searchKeyword)
       }
     },
     onResetText (event) {
