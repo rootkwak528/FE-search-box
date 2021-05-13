@@ -28,7 +28,6 @@ export default {
   data () {
     return {
       selectedMovie: '',
-      searchText: '',
       movieList: ''
     }
   },
@@ -45,16 +44,27 @@ export default {
         query: textInput
       }
       
+      // TMDB 검색
       this.searchTMDB('search', 'movie', params)
-      .then( res => {
-        this.movieList = res.data.results
-      })
-      .catch( err => {
-        console.log(err)
-      })
+        .then( res => {
+          this.movieList = res.data.results
+        })
+        .catch( err => {
+          console.log(err)
+        })
     },
     onClickItem (movie) {
-      this.selectedMovie = movie
+      // TMDB 예고편 정보 확인
+      this.searchTMDB('movie', `${movie.id}/videos`)
+        .then( res => {
+          this.selectedMovie = {
+            ...movie,
+            trailerUrl: `https://www.youtube.com/embed/${res.data.results[0].key}`
+          }
+        })
+        .catch( err => {
+          console.log(err)
+        })
     },
     async searchTMDB (category, feature, params) {
       // url 확인
@@ -64,11 +74,10 @@ export default {
       }
 
       // TMDB API request
-      const res = await axios({
+      return await axios({
         method: 'get',
         url
       })
-      return res
     }
   }
 }
