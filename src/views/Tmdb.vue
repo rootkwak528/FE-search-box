@@ -45,7 +45,7 @@ export default {
         query: textInput
       }
       
-      this.searchTmdb(params)
+      this.searchTMDB('search', 'movie', params)
       .then( res => {
         this.movieList = res.data.results
       })
@@ -54,24 +54,19 @@ export default {
       })
     },
     onClickItem (movie) {
-      // const params = {
-        
-      // }
       this.selectedMovie = movie
     },
-    getUrl (category='movie', feature='', kwargs) {
-      // TMDB API에 요청할 url를 반환하는 메서드
+    async searchTMDB (category, feature, params) {
+      // url 확인
       let url = `${API_URL}/${category}/${feature}?api_key=${API_KEY}`
-      for (const key in kwargs) {
-        url += `&${key}=${kwargs[key]}`
+      for (const key in params) {
+        url += `&${key}=${params[key]}`
       }
-      return url
-    },
-    async searchTmdb (params) {
-      // TMDB API 요청
+
+      // TMDB API request
       const res = await axios({
         method: 'get',
-        url: this.getUrl('search', 'movie', params)
+        url
       })
       return res
     }
