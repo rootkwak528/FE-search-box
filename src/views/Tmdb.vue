@@ -39,7 +39,25 @@ export default {
   },
   methods: {
     onTmdbTextInput (textInput) {
-      this.searchTmdb(textInput)
+      const params = {
+        region: 'KR',
+        language: 'ko',
+        query: textInput
+      }
+      
+      this.searchTmdb(params)
+      .then( res => {
+        this.movieList = res.data.results
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    },
+    onClickItem (movie) {
+      // const params = {
+        
+      // }
+      this.selectedMovie = movie
     },
     getUrl (category='movie', feature='', kwargs) {
       // TMDB API에 요청할 url를 반환하는 메서드
@@ -47,31 +65,15 @@ export default {
       for (const key in kwargs) {
         url += `&${key}=${kwargs[key]}`
       }
-
       return url
     },
-    searchTmdb (searchKeyword) {
-      const params = {
-        region: 'KR',
-        language: 'ko',
-        query: searchKeyword
-      }
-      const url = this.getUrl('search', 'movie', params)
-
+    async searchTmdb (params) {
       // TMDB API 요청
-      axios({
+      const res = await axios({
         method: 'get',
-        url
+        url: this.getUrl('search', 'movie', params)
       })
-      .then((res) => {
-        this.movieList = res.data.results
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
-    onClickItem (movie) {
-      this.selectedMovie = movie
+      return res
     }
   }
 }

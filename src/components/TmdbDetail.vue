@@ -16,7 +16,8 @@ export default {
     }
   },
   updated () {
-    console.log(this.selectedMovie)
+    const movieId = this.selectedMovie.id
+    console.log(movieId)
   }
 }
 </script>
