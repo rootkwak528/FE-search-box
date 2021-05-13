@@ -1,10 +1,10 @@
 <template>
   <div>
-    <TmdbDetail
-      :selectedMovie="selectedMovie"
-    />
     <TmdbSearchBox
       @tmdb-text-input="onTmdbTextInput"
+    />
+    <TmdbDetail
+      :selectedMovie="selectedMovie"
     />
     <TmdbSearchList
       :movieList="movieList"
