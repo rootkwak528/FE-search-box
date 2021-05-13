@@ -1,3 +1,7 @@
+# 리드미 작성용
+*.key
+diagram
+
 .DS_Store
 node_modules
 /dist
